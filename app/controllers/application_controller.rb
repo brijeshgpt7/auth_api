@@ -4,6 +4,16 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery with: :exception
   helper_method :current_user
   
+
+  def remote_ip
+    if request.remote_ip == '127.0.0.1'
+      # Hard coded remote address
+      '123.45.67.89'
+    else
+      request.remote_ip
+    end
+  end
+
   private
   def current_user  
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
